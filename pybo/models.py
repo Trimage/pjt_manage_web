@@ -8,7 +8,6 @@ class Question(models.Model) :
     def __str__(self):
         return [self.subject]
 
-
 class Answer(models.Model) :
     subject = models.ForeignKey(Question, on_delete=models.CASCADE)
     content = models.TextField()
