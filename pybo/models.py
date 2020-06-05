@@ -19,8 +19,8 @@ class Project_Info(models.Model):
 
     #날짜, 프로젝트번호, 진행주소, 프로젝트명
 
-    date = models.DateField(unique=True, blank=False)
-    num = models.IntegerField(unique=True, blank=False)
+    date = models.DateField(blank=False)
+    num = models.IntegerField(blank=False)
     address = models.CharField(max_length=100)
     name = models.CharField(max_length=100)
 
