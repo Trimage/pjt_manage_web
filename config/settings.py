@@ -78,8 +78,23 @@ WSGI_APPLICATION = 'config.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        #'ENGINE': 'django.db.backends.sqlite3',
+        # 'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+
+#        'ENGINE' : 'django.db.backends.mysql',
+#        'OPTION' :  {
+#            'read_default_file' : "path/mariadb.cnf",
+#        }
+        #아래 처럼 입력해도 되나, 보안을 위해 설정 파일을 불러오는게 좋음
+
+        'ENGINE' : 'django.db.backends.mysql',
+        'NAME': 'supportec',
+        'USER' : '200601',
+        'PASSWORD' : 'Tjvhxpr0797!',
+        'HOST' : '172.16.0.11',
+        'PORT' : '3307'
+
+
     }
 }
 
