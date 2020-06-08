@@ -468,47 +468,15 @@
                   </a>
               </div>
 
-
-            <!-- 납품일 정보 출력 -->
-              <div class="col-xl-3 col-md-6 mb-4">
-                  <a href="#" class="btn btn-success btn-icon-split btn-lg">
-                    <span class="icon text-white-50"> 납품일 </span>
-                    <span class="text"> {{ question.id }} </span>
-                  </a>
-              </div>
-
-
             </div>
 
 
            <!-- Page Middle Heading -->
           <h1 class="h3 mb-4 text-gray-800"> {{ question.id }}번 회의정보</h1>
 
+
+
           <div class="row">
-
-            <div class="col-lg-6">
-
-              <!-- Default Card Example -->
-              <div class="card mb-4">
-                <div class="card-header">
-                  Default Card Example
-                </div>
-                <div class="card-body">
-                  This card uses Bootstrap's default styling with no utility classes added. Global styles are the only things modifying the look and feel of this default card example.
-                </div>
-              </div>
-
-              <!-- Basic Card Example -->
-              <div class="card shadow mb-4">
-                <div class="card-header py-3">
-                  <h6 class="m-0 font-weight-bold text-primary">Basic Card Example</h6>
-                </div>
-                <div class="card-body">
-                  The styling for this basic card example is created by using default Bootstrap utility classes. By using utility classes, the style of the card component can be easily modified with no need for any custom CSS!
-                </div>
-              </div>
-
-            </div>
 
             <div class="col-lg-6">
 
@@ -522,30 +490,183 @@
                       <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
                     </a>
                     <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink">
-                      <div class="dropdown-header">Dropdown Header:</div>
-                      <a class="dropdown-item" href="#">Action</a>
-                      <a class="dropdown-item" href="#">Another action</a>
+                      <a class="dropdown-item" href="#">회의자료 Download</a>
                       <div class="dropdown-divider"></div>
-                      <a class="dropdown-item" href="#">Something else here</a>
+                      <div class="dropdown-header">작성자 : 홍길동</div>
+                    </div>
+                  </div>
+                </div>
+                <!-- Card Body -->
+
+                <div class="card-body">
+                  Dropdown menus can be placed in the card header in order to extend the functionality of a basic card. In this dropdown card example, the Font Awesome vertical ellipsis icon in the card header can be clicked on in order to toggle a dropdown menu.
+                  Dropdown menus can be placed in the card header in order to extend the functionality of a basic card. In this dropdown card example, the Font Awesome vertical ellipsis icon in the card header can be clicked on in order to toggle a dropdown menu.
+                  Dropdown menus can be placed in the card header in order to extend the functionality of a basic card. In this dropdown card example, the Font Awesome vertical ellipsis icon in the card header can be clicked on in order to toggle a dropdown menu.
+                </div>
+              </div>
+
+            </div>
+
+            <div class="col-lg-6">
+
+              <!-- Collapsable Card Example -->
+              <div class="card shadow mb-4">
+                <!-- Card Header - Accordion -->
+                <a href="#collapseCardExample1" class="d-block card-header py-3" data-toggle="collapse" role="button" aria-expanded="true" aria-controls="collapseCardExample">
+                  <h6 class="m-0 font-weight-bold text-primary">지적사항1</h6>
+                </a>
+                <!-- Card Content - Collapse -->
+                <div class="collapse show" id="collapseCardExample1">
+                  <div class="card-body">
+                    <p>날짜 : 2020-06-01<br>
+                    작성자 : 홍길동<br>
+                    지적내용 : 지적테스트내용222</p>
+
+                    <p>날짜 : 2020-06-03<br>
+                    작성자 : 암행어사<br>
+                    조치내용 : 조치테스트내용3222</p>
+
+                  </div>
+                </div>
+              </div>
+
+
+              <!-- Collapsable Card Example -->
+              <div class="card shadow mb-4">
+                <!-- Card Header - Accordion -->
+                <a href="#collapseCardExample4" class="d-block card-header py-3" data-toggle="collapse" role="button" aria-expanded="true" aria-controls="collapseCardExample">
+                  <h6 class="m-0 font-weight-bold te                                                                                                                                                                                                                                                                                                                                                                                                                                             xt-primary">지적사항4</h6>
+                </a>
+                <!-- Card Content - Collapse -->
+                <div class="collapse show" id="collapseCardExample4">
+                  <div class="card-body">
+                    <p>날짜 : 2020-06-01<br>
+                    작성자 : 홍길동<br>
+                    지적내용 : 지적테스트내용222</p>
+
+                    <p>날짜 : 2020-06-03<br>
+                    작성자 : 암행어사<br>
+                    조치내용 : 조치테스트내용3222</p>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+
+          </div>
+
+          <div class="row">
+
+            <div class="col-lg-6">
+
+              <!-- Dropdown Card Example -->
+              <div class="card shadow mb-4">
+                <!-- Card Header - Dropdown -->
+                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                  <h6 class="m-0 font-weight-bold text-primary">Dropdown Card Example</h6>
+                  <div class="dropdown no-arrow">
+                    <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                      <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink">
+                      <a class="dropdown-item" href="#">회의자료 Download</a>
+                      <div class="dropdown-divider"></div>
+                      <div class="dropdown-header">작성자 : 홍길동</div>
                     </div>
                   </div>
                 </div>
                 <!-- Card Body -->
                 <div class="card-body">
                   Dropdown menus can be placed in the card header in order to extend the functionality of a basic card. In this dropdown card example, the Font Awesome vertical ellipsis icon in the card header can be clicked on in order to toggle a dropdown menu.
+                  Dropdown menus can be placed in the card header in order to extend the functionality of a basic card. In this dropdown card example, the Font Awesome vertical ellipsis icon in the card header can be clicked on in order to toggle a dropdown menu.
+                  Dropdown menus can be placed in the card header in order to extend the functionality of a basic card. In this dropdown card example, the Font Awesome vertical ellipsis icon in the card header can be clicked on in order to toggle a dropdown menu.
                 </div>
               </div>
+
+            </div>
+
+            <div class="col-lg-6">
 
               <!-- Collapsable Card Example -->
               <div class="card shadow mb-4">
                 <!-- Card Header - Accordion -->
-                <a href="#collapseCardExample" class="d-block card-header py-3" data-toggle="collapse" role="button" aria-expanded="true" aria-controls="collapseCardExample">
-                  <h6 class="m-0 font-weight-bold text-primary">Collapsable Card Example</h6>
+                <a href="#collapseCardExample1" class="d-block card-header py-3" data-toggle="collapse" role="button" aria-expanded="true" aria-controls="collapseCardExample">
+                  <h6 class="m-0 font-weight-bold text-primary">지적사항1</h6>
                 </a>
                 <!-- Card Content - Collapse -->
-                <div class="collapse show" id="collapseCardExample">
+                <div class="collapse show" id="collapseCardExample1">
                   <div class="card-body">
-                    This is a collapsable card example using Bootstrap's built in collapse functionality. <strong>Click on the card header</strong> to see the card body collapse and expand!
+                    <p>날짜 : 2020-06-01<br>
+                    작성자 : 홍길동<br>
+                    지적내용 : 지적테스트내용222</p>
+
+                    <p>날짜 : 2020-06-03<br>
+                    작성자 : 암행어사<br>
+                    조치내용 : 조치테스트내용3222</p>
+
+                  </div>
+                </div>
+              </div>
+
+
+              <!-- Collapsable Card Example -->
+              <div class="card shadow mb-4">
+                <!-- Card Header - Accordion -->
+                <a href="#collapseCardExample2" class="d-block card-header py-3" data-toggle="collapse" role="button" aria-expanded="true" aria-controls="collapseCardExample">
+                  <h6 class="m-0 font-weight-bold text-primary">지적사항2</h6>
+                </a>
+                <!-- Card Content - Collapse -->
+                <div class="collapse show" id="collapseCardExample2">
+                  <div class="card-body">
+                    <p>날짜 : 2020-06-01<br>
+                    작성자 : 홍길동<br>
+                    지적내용 : 지적테스트내용222</p>
+
+                    <p>날짜 : 2020-06-03<br>
+                    작성자 : 암행어사<br>
+                    조치내용 : 조치테스트내용3222</p>
+                  </div>
+                </div>
+              </div>
+
+
+              <!-- Collapsable Card Example -->
+              <div class="card shadow mb-4">
+                <!-- Card Header - Accordion -->
+                <a href="#collapseCardExample3" class="d-block card-header py-3" data-toggle="collapse" role="button" aria-expanded="true" aria-controls="collapseCardExample">
+                  <h6 class="m-0 font-weight-bold text-primary">지적사항3 (미처리)</h6>
+                </a>
+                <!-- Card Content - Collapse -->
+                <div class="collapse show" id="collapseCardExample3">
+                  <div class="card-body">
+                    <p>날짜 : 2020-06-01<br>
+                    작성자 : 홍길동<br>
+                    지적내용 : 지적테스트내용222</p>
+
+                    <p>날짜 : 2020-06-03<br>
+                    작성자 : 암행어사<br>
+                    조치내용 : 조치테스트내용3222</p>
+                  </div>
+                </div>
+              </div>
+
+
+              <!-- Collapsable Card Example -->
+              <div class="card shadow mb-4">
+                <!-- Card Header - Accordion -->
+                <a href="#collapseCardExample4" class="d-block card-header py-3" data-toggle="collapse" role="button" aria-expanded="true" aria-controls="collapseCardExample">
+                  <h6 class="m-0 font-weight-bold text-primary">지적사항4</h6>
+                </a>
+                <!-- Card Content - Collapse -->
+                <div class="collapse show" id="collapseCardExample4">
+                  <div class="card-body">
+                    <p>날짜 : 2020-06-01<br>
+                    작성자 : 홍길동<br>
+                    지적내용 : 지적테스트내용222</p>
+
+                    <p>날짜 : 2020-06-03<br>
+                    작성자 : 암행어사<br>
+                    조치내용 : 조치테스트내용3222</p>
                   </div>
                 </div>
               </div>
