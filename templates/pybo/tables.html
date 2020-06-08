@@ -350,26 +350,53 @@
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                   <thead>
                     <tr>
-                      <th>Name</th>
-                      <th>Position</th>
-                      <th>Office</th>
-                      <th>Age</th>
-                      <th>Start date</th>
-                      <th>Salary</th>
+                      <th>PJT.NO</th>
+                      <th>주소지</th>
+                      <th>프로젝트명</th>
+                      <th>시행사</th>
+                      <th>시공사</th>
+                      <th>설계사</th>
+                      <!--
+                      <th>날짜</th>
+                      <th>PJT.NO</th>
+                      <th>프로젝트명</th>
+                      <th>시행사</th>
+                      <th>시공사</th>
+                      <th>하도급사</th>
+                      <th>설계사</th>
+                      -->
                     </tr>
                   </thead>
                   <tfoot>
                     <tr>
-                      <th>Name</th>
-                      <th>Position</th>
-                      <th>Office</th>
-                      <th>Age</th>
-                      <th>Start date</th>
-                      <th>Salary</th>
+                      <th>PJT.NO</th>
+                      <th>날짜</th>
+                      <th>주소지</th>
+                      <th>프로젝트명</th>
+                      <th>시행사</th>
+                      <th>규모</th>
                     </tr>
                   </tfoot>
                   <tbody>
+                  {% if project_list %}
+                    {% for data in project_list.values %}
+                      <tr>
+                        <td> {{ data.date|date:"y" }}-{{ data.num }} </td>
+                        <td> {{ data.address }} </td>
+                        <td> {{ data.name }} </td>
+                        <td> {{ data.execute }} </td>
+                        <td> {{ data.construct }} </td>
+                        <td> {{ data.plan }} </td>
+                      </tr>
+                    {% endfor %}
+                  {% else %}
                     <tr>
+                      <td> 프로젝트가 존재하지 않습니다. </td>
+                    </tr>
+                  {% endif %}
+
+                  <!--
+                  <tr>
                       <td>Tiger Nixon</td>
                       <td>System Architect</td>
                       <td>Edinburgh</td>
@@ -825,6 +852,8 @@
                       <td>2011/01/25</td>
                       <td>$112,000</td>
                     </tr>
+                    -->
+
                   </tbody>
                 </table>
               </div>
