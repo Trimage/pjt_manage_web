@@ -48,7 +48,7 @@ def tables(request) :
 
     #고유 id를 기준으로 내림차순 정렬하여 불러오기
     project_info = Project_Info.objects.order_by('-id')
-    project_company = Project_company.objects.order_by('-pjt_idx_id')
+    project_company = Project_Company.objects.order_by('-pjt_idx_id')
 
     #페이지로 전달되는 데이터로써, 출력할 프로젝트정보를 딕셔너리 형태로 저장 (key는 pjt_id)
     project_data = {}
@@ -106,10 +106,11 @@ def detail(request, pjt_id):
     except :
         return render(request, 'pybo/404.html')
 
-    project_construct = Project_construct.objects.get(pjt_idx_id=pjt_id)
-    project_company = Project_company.objects.get(pjt_idx_id=pjt_id)
-    project_cost = Project_cost.objects.get(pjt_idx_id=pjt_id)
-    project_schedule = Project_schedule.objects.get(pjt_idx_id=pjt_id)
+    project_construct = Project_Construct.objects.get(pjt_idx_id=pjt_id)
+    project_company = Project_Company.objects.get(pjt_idx_id=pjt_id)
+    project_cost = Project_Cost.objects.get(pjt_idx_id=pjt_id)
+    project_schedule = Project_Schedule.objects.get(pjt_idx_id=pjt_id)
+
 
     pjt = Project_total()
 
@@ -140,7 +141,50 @@ def detail(request, pjt_id):
     pjt.delivery = project_schedule.delivery
 
 
-    context = {'project': pjt}
+    cfr_list = []
+
+
+    conference_info = Conference_Info.objects.filter(pjt_idx_id=pjt_id).order_by('-num')
+
+    for conference in conference_info:
+        cfr = Conference_total()
+
+        cfr.id = conference.id
+        cfr.pjt_idx = conference.pjt_idx_id
+        cfr.num = conference.num
+        cfr.date = conference.date
+        cfr.place = conference.place
+        cfr.cf_start = conference.cf_start
+        cfr.cf_end = conference.cf_end
+        cfr.reference = conference.reference
+
+        conference_content = Conference_Content.objects.get(cfr_idx_id=cfr.id)
+        conference_attender = Conference_Attender.objects.filter(cfr_idx_id=cfr.id).order_by('responsibility')
+        conference_visitor = Conference_Visitor.objects.filter(cfr_idx_id=cfr.id).order_by('position')
+        conference_approve = Conference_Approve.objects.filter(cfr_idx_id=cfr.id).order_by('position')
+        conference_point = Conference_Point.objects.filter(cfr_idx_id=cfr.id).order_by('-num')
+        conference_action = Conference_Action.objects.filter(point_idx=conference_point.id).order_by('-num')
+
+        cfr.summary = conference_content.summary
+        cfr.detail = conference_content.detail
+        cfr.writer = conference_content.writer
+
+        cfr.attender.append(conference_attender)
+        cfr.visitor.append(conference_visitor)
+
+        for approve in conference_approve :
+            cfr.approve[approve.num] = conference_approve
+
+        cfr.point.append(conference_point)
+
+        for action in conference_action :
+            cfr.approve[action.point_idx] = conference_action
+
+
+        cfr_list.append(cfr)
+
+
+    context = {'project': pjt, 'conference' : cfr_list}
 
     return render(request, 'pybo/question_detail.html', context)
 
