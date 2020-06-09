@@ -73,6 +73,7 @@ class Project_total :
         self.plan = ''
 
 
+#tables.html 관련 함수
 def tables(request) :
 
     #고유 id를 기준으로 내림차순 정렬하여 불러오기
@@ -127,16 +128,49 @@ def tables(request) :
     return render(request, 'pybo/tables.html', context)
 
 
-def detail(request, question_id):
-    """
-    pybo 내용 출력
-    """
+# tables/게시글번호 관련 함수
+def detail(request, pjt_id):
+
     try :
-        question = get_object_or_404(Question, pk=question_id)
+        project_info = get_object_or_404(Project_Info, pk=pjt_id)
     except :
         return render(request, 'pybo/404.html')
 
-    context = {'question': question}
+    project_construct = Project_construct.objects.get(pjt_idx_id=pjt_id)
+    project_company = Project_company.objects.get(pjt_idx_id=pjt_id)
+    project_cost = Project_cost.objects.get(pjt_idx_id=pjt_id)
+    project_schedule = Project_schedule.objects.get(pjt_idx_id=pjt_id)
+
+    pjt = Project_total()
+
+    pjt.id = project_info.id
+    pjt.date = project_info.date
+    pjt.num = project_info.num
+    pjt.address = project_info.address
+    pjt.name = project_info.name
+
+    pjt.shape = project_construct.shape
+    pjt.scale_width = project_construct.scale_width
+    pjt.scale_length = project_construct.scale_length
+    pjt.scale_depth = project_construct.scale_depth
+    pjt.tm = project_construct.tm
+    pjt.steel = project_construct.steel
+    pjt.earth = project_construct.earth
+
+    pjt.real = project_cost.real
+    pjt.total = project_cost.total
+
+    pjt.execute = project_company.execute
+    pjt.construct = project_company.construct
+    pjt.subcontract = project_company.subcontract
+    pjt.plan = project_company.plan
+
+    pjt.receive = project_schedule.receive
+    pjt.contract = project_schedule.contract
+    pjt.delivery = project_schedule.delivery
+
+
+    context = {'project': pjt}
 
     return render(request, 'pybo/question_detail.html', context)
 
