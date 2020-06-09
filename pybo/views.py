@@ -1,5 +1,6 @@
 from django.shortcuts import render, get_object_or_404
 from .models import *
+from .classs import *
 
 def index(request) :
     return render(request, 'pybo/index.html')
@@ -40,37 +41,6 @@ def blank(request):
 def charts(request) :
     return render(request, 'pybo/charts.html')
 
-
-
-class Project_total :
-    # 프로젝트 객체
-
-    def __init__(self):
-        self.id = 0
-        self.date = ''
-        self.num = 0
-        self.address = ''
-        self.name = ''
-
-        self.shape = ''
-        self.scale_width = 0
-        self.scale_length = 0
-        self.scale_depth = 0
-        self.tm = 0
-        self.steel = 0
-        self.earth = 0
-
-        self.real = 0
-        self.total = 0
-
-        self.receive = ''
-        self.contract = ''
-        self.delivery = ''
-
-        self.execute = ''
-        self.construct = ''
-        self.subcontract = ''
-        self.plan = ''
 
 
 #tables.html 관련 함수
@@ -128,7 +98,7 @@ def tables(request) :
     return render(request, 'pybo/tables.html', context)
 
 
-# tables/게시글번호 관련 함수
+# url 'tables/게시글번호' 관련 함수
 def detail(request, pjt_id):
 
     try :
@@ -175,6 +145,3 @@ def detail(request, pjt_id):
     return render(request, 'pybo/question_detail.html', context)
 
 
-
-
-# Create your views here.

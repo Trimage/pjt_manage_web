@@ -107,6 +107,7 @@ class Conference_content(models.Model):
     #작성자, 요약, 상세내용
 
     cfr_idx = models.ForeignKey(Conference_Info, on_delete=models.CASCADE)
+    num = models.IntegerField(blank=False)
     writer = models.CharField(max_length=30)
     summary = models.CharField(max_length=200)
     detail = models.TextField()
