@@ -48,10 +48,11 @@ class Conference_total :
         self.detail = ''
         self.writer = ''
 
-        self.point = {}
+        self.point = []
+        self.action = {}
         self.approve = {}
-        self.visitor = {}
-        self.attender = {}
+        self.visitor = []
+        self.attender = []
 
 
 
