@@ -522,14 +522,14 @@
                 <!-- Card Content - Collapse -->
                 <div class="collapse show" id="collapseCardExample1">
                   <div class="card-body">
-                    <p>날짜 : {{ point.date }}<br>
+                    <p>날짜 : {{ point.date | date:"y-m-d" }}<br>
                     작성자 : {{ point.writer }} <br>
                     지적내용 : {{ point.summary }} </p>
 
                     {% if cfr.action %}
                       {% for action in cfr.action.values %}
                         <hr>
-                        <p> 날짜 : {{ action.data }}<br>
+                        <p> 날짜 : {{ action.date | date:"y-m-d" }}<br>
                             작성자 : {{ action.writer }} <br>
                             조치내용 : {{ action.summary }} </p>
                       {% endfor %}

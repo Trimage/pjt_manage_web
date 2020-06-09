@@ -159,6 +159,7 @@ class Conference_Point(models.Model) :
     num = models.IntegerField(blank=False)
     writer = models.CharField(max_length=30)
     summary = models.CharField(max_length=200)
+    date = models.DateTimeField()
 
 
 
@@ -170,3 +171,4 @@ class Conference_Action(models.Model) :
     num = models.IntegerField(blank=False)
     writer = models.CharField(max_length=30)
     summary = models.CharField(max_length=200)
+    date = models.DateTimeField()
