@@ -210,10 +210,9 @@ def detail(request, pjt_id):
         except:
             conference_point = Point_out()
 
-        cfr.point.append(conference_point)
-
-
         for point in conference_point :
+            cfr.point[point.id] = point
+
             try :
                 conference_action = Conference_Action.objects.filter(point_idx_id=point.id).order_by('-num')
             except :
