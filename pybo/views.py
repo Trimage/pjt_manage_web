@@ -106,10 +106,26 @@ def detail(request, pjt_id):
     except :
         return render(request, 'pybo/404.html')
 
-    project_construct = Project_Construct.objects.get(pjt_idx_id=pjt_id)
-    project_company = Project_Company.objects.get(pjt_idx_id=pjt_id)
-    project_cost = Project_Cost.objects.get(pjt_idx_id=pjt_id)
-    project_schedule = Project_Schedule.objects.get(pjt_idx_id=pjt_id)
+    try :
+        project_construct = Project_Construct.objects.get(pjt_idx_id=pjt_id)
+    except :
+        project_construct = Project_total()
+
+    try :
+        project_company = Project_Company.objects.get(pjt_idx_id=pjt_id)
+    except :
+        project_company = Project_total()
+
+
+    try :
+        project_cost = Project_Cost.objects.get(pjt_idx_id=pjt_id)
+    except :
+        project_cost = Project_total()
+
+    try :
+        project_schedule = Project_Schedule.objects.get(pjt_idx_id=pjt_id)
+    except :
+        project_schedule = Project_total()
 
 
     pjt = Project_total()
@@ -158,12 +174,25 @@ def detail(request, pjt_id):
         cfr.cf_end = conference.cf_end
         cfr.reference = conference.reference
 
-        conference_content = Conference_Content.objects.get(cfr_idx_id=cfr.id)
-        conference_attender = Conference_Attender.objects.filter(cfr_idx_id=cfr.id).order_by('responsibility')
-        conference_visitor = Conference_Visitor.objects.filter(cfr_idx_id=cfr.id).order_by('position')
-        conference_approve = Conference_Approve.objects.filter(cfr_idx_id=cfr.id).order_by('position')
-        conference_point = Conference_Point.objects.filter(cfr_idx_id=cfr.id).order_by('-num')
-        conference_action = Conference_Action.objects.filter(point_idx=conference_point.id).order_by('-num')
+        try :
+            conference_content = Conference_Content.objects.get(cfr_idx_id=cfr.id)
+        except :
+            conference_content = Conference_total()
+
+        try:
+            conference_attender = Conference_Attender.objects.filter(cfr_idx_id=cfr.id).order_by('responsibility')
+        except :
+            conference_attender = Attender()
+
+        try:
+            conference_visitor = Conference_Visitor.objects.filter(cfr_idx_id=cfr.id).order_by('position')
+        except:
+            conference_visitor = Visitor()
+
+        try:
+            conference_approve = Conference_Approve.objects.filter(cfr_idx_id=cfr.id).order_by('position')
+        except:
+            conference_approve = Approve()
 
         cfr.summary = conference_content.summary
         cfr.detail = conference_content.detail
@@ -173,18 +202,30 @@ def detail(request, pjt_id):
         cfr.visitor.append(conference_visitor)
 
         for approve in conference_approve :
-            cfr.approve[approve.num] = conference_approve
+            cfr.approve[approve.id] = approve
+
+
+        try :
+            conference_point = Conference_Point.objects.filter(cfr_idx_id=cfr.id).order_by('-num')
+        except:
+            conference_point = Point_out()
 
         cfr.point.append(conference_point)
 
-        for action in conference_action :
-            cfr.approve[action.point_idx] = conference_action
 
+        for point in conference_point :
+            try :
+                conference_action = Conference_Action.objects.filter(point_idx_id=point.id).order_by('-num')
+            except :
+                conference_action = Action()
+
+            for action in conference_action :
+                cfr.action[point.id] = action
 
         cfr_list.append(cfr)
 
 
-    context = {'project': pjt, 'conference' : cfr_list}
+    context = {'project': pjt, 'conference_list' : cfr_list}
 
     return render(request, 'pybo/question_detail.html', context)
 

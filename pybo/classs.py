@@ -111,6 +111,7 @@ class Point_out :
         self.num = 0
 
         self.date = ''
+        self.summary = ''
         self.position = ''
         self.name = ''
 
@@ -122,8 +123,10 @@ class Action:
         self.id = 0
         self.pjt_idx = 0
         self.cfr_idx_id = 0
+        self.point_idx_id = 0
         self.num = 0
 
         self.date = ''
+        self.summary = ''
         self.position = ''
         self.name = ''
