@@ -137,7 +137,7 @@ def detail(request, pjt_id):
         if project_construct.tm_expect == False:
             pjt.tm = '(' + str(project_construct.tm) + ')'
 
-        if project_construct.subcontract_expect == False:
+        if project_construct.steel_expect == False:
             pjt.steel = '(' + str(project_construct.steel) + ')'
 
         if project_construct.earth_expect == False:
