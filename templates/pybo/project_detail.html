@@ -349,6 +349,9 @@
 
 
 
+
+
+            <!-- 프로젝트 번호, 주소지, 프로젝트명 출력 -->
             <div class="row">
 
             <!-- PJT.NO Card source -->
@@ -403,42 +406,50 @@
             </div>
             </div>
 
+            <!-- 설명문 부분 -->
+          <div class="d-sm-flex align-items-center justify-content-between mb-4">
+              <span class="icon text-white-50">
+                <i class="fas fa-arrow-right"></i>
+              </span>
+                <span class="text">* 괄호에 경우 예정데이터</span>
+          </div>
 
 
 
 
+            <!-- 시행사, 시공사, 하도급사, 설계사 출력 -->
             <div class="row">
             <!-- 시행사 정보 출력 -->
               <div class="col-xl-3 col-md-6 mb-4">
                   <a href="#" class="btn btn-primary btn-icon-split btn-lg">
                     <span class="icon text-white-50"> 시행사 </span>
-                    <span class="text"> {{ project.execute }} </span>
+                    <span class="text"> {{ project.execute | default:'-' }} </span>
                   </a>
               </div>
 
             <!-- 시공사 정보 출력 -->
               <div class="col-xl-3 col-md-6 mb-4">
-                  <a href="#" class="btn btn-info btn-icon-split btn-lg">
+                  <a href="#" class="btn btn-primary btn-icon-split btn-lg">
                     <span class="icon text-white-50"> 시공사 </span>
-                    <span class="text"> {{ project.construct }} </span>
+                    <span class="text"> {{ project.construct | default:'-' }} </span>
                   </a>
               </div>
 
 
             <!-- 하도급사 정보 출력 -->
               <div class="col-xl-3 col-md-6 mb-4">
-                  <a href="#" class="btn btn-warning btn-icon-split btn-lg">
+                  <a href="#" class="btn btn-primary btn-icon-split btn-lg">
                     <span class="icon text-white-50"> 하도급사 </span>
-                    <span class="text"> {{ project.subcontract }} </span>
+                    <span class="text"> {{ project.subcontract | default:'-' }} </span>
                   </a>
               </div>
 
 
             <!-- 설계사 정보 출력 -->
               <div class="col-xl-3 col-md-6 mb-4">
-                  <a href="#" class="btn btn-danger btn-icon-split btn-lg">
+                  <a href="#" class="btn btn-primary btn-icon-split btn-lg">
                     <span class="icon text-white-50"> 설계사 </span>
-                    <span class="text"> {{ project.plan }} </span>
+                    <span class="text"> {{ project.plan | default:'-' }} </span>
                  </a>
               </div>
 
@@ -449,13 +460,13 @@
 
 
 
-
+            <!-- 접수일, 계약일, 납품일 출력 -->
             <div class="row">
             <!-- 접수일 정보 출력 -->
               <div class="col-xl-3 col-md-6 mb-4">
                   <a href="#" class="btn btn-success btn-icon-split btn-lg">
                     <span class="icon text-white-50"> 접수일 </span>
-                    <span class="text"> {{ project.receive | date:"yy-m-d" }} </span>
+                    <span class="text"> {{ project.receive | date:"yy-m-d" | default:'-'}} </span>
                   </a>
               </div>
 
@@ -464,7 +475,95 @@
               <div class="col-xl-3 col-md-6 mb-4">
                   <a href="#" class="btn btn-success btn-icon-split btn-lg">
                     <span class="icon text-white-50"> 계약일 </span>
-                    <span class="text"> {{ project.contract | date:"yy-m-d"  }} </span>
+                    <span class="text"> {{ project.contract | date:"yy-m-d" | default:'-' }} </span>
+                  </a>
+              </div>
+
+
+            <!-- 납품일 정보 출력 -->
+              <div class="col-xl-3 col-md-6 mb-4">
+                  <a href="#" class="btn btn-success btn-icon-split btn-lg">
+                    <span class="icon text-white-50"> 납품일 </span>
+                    <span class="text"> {{ project.delivery | date:"yy-m-d" | default:'-' }} </span>
+                  </a>
+              </div>
+
+            </div>
+
+
+
+
+
+            <!-- 공사규모, tm, 토량 정보 출력 -->
+            <div class="row">
+
+            <!-- 공사규모 출력 -->
+              <div class="col-xl-3 col-md-6 mb-4">
+                <a href="#" class="btn btn-warning btn-icon-split">
+                    <span class="icon text-white-50">
+                      공사규모
+                    </span>
+                    <span class="text"> {{ project.shape }}{{ project.scale_width }} x {{ project.scale_length }} x {{ project.scale_depth }}</span>
+                  </a>
+              </div>
+
+
+            <!-- tm 정보 출력 -->
+              <div class="col-xl-3 col-md-6 mb-4">
+                <a href="#" class="btn btn-warning btn-icon-split">
+                    <span class="icon text-white-50">
+                      t/m
+                    </span>
+                    <span class="text"> {{ project.tm | default:'-' }}</span>
+                  </a>
+              </div>
+
+
+            <!-- 토량 정보 출력 -->
+              <div class="col-xl-3 col-md-6 mb-4">
+                <a href="#" class="btn btn-warning btn-icon-split">
+                    <span class="icon text-white-50">
+                       토량(M3)
+                    </span>
+                    <span class="text"> {{ project.earth | default:'-' }}</span>
+                  </a>
+              </div>
+            </div>
+
+
+
+            <!-- 강재(t), 실(억), 총(억) 정보 출력 -->
+            <div class="row">
+
+            <!-- 강재(t) 정보 출력 -->
+              <div class="col-xl-3 col-md-6 mb-4">
+                <a href="#" class="btn btn-danger btn-icon-split">
+                    <span class="icon text-white-50">
+                       강재(t)
+                    </span>
+                    <span class="text"> {{ project.steel | default:'-' }}</span>
+                  </a>
+              </div>
+
+
+            <!-- 실(억) 정보 출력 -->
+              <div class="col-xl-3 col-md-6 mb-4">
+                <a href="#" class="btn btn-danger btn-icon-split">
+                    <span class="icon text-white-50">
+                       실(억)
+                    </span>
+                    <span class="text"> {{ project.real | default:'-' }} </span>
+                  </a>
+              </div>
+
+
+            <!-- 총(억) 정보 출력 -->
+              <div class="col-xl-3 col-md-6 mb-4">
+                <a href="#" class="btn btn-danger btn-icon-split">
+                    <span class="icon text-white-50">
+                       총(억)
+                    </span>
+                    <span class="text"> {{ project.total | default:'-' }} </span>
                   </a>
               </div>
 
@@ -502,7 +601,7 @@
                 </div>
                 <!-- Card Body -->
                 <div class="card-body">
-                  날짜 : {{ cfr.date | date:"yy-m-d" }} <br>
+                  일시 : {{ cfr.date | date:"yy-m-d" }} / {{ cfr.cf_start | time:"H:i"}} ~ {{ cfr.cf_end | time:"H:i"}} <br>
                   장소 : {{ cfr.place }} <br>
                   내용 : {{ cfr.detail }}
                 </div>
@@ -535,18 +634,19 @@
               <!-- Collapsable Card Example -->
               <div class="card shadow mb-4">
                 <!-- Card Header - Accordion -->
-                <a href="#collapseCardExample1" class="d-block card-header py-3" data-toggle="collapse" role="button" aria-expanded="true" aria-controls="collapseCardExample">
+                <a href="#collapseCardExample{{ point.id }}" class="d-block card-header py-3" data-toggle="collapse" role="button" aria-expanded="true" aria-controls="collapseCardExample">
                   <h6 class="m-0 font-weight-bold text-primary"> {{ point.summary }}</h6>
                 </a>
                 <!-- Card Content - Collapse -->
-                <div class="collapse show" id="collapseCardExample1">
+                <div class="collapse show" id="collapseCardExample{{ point.id }}">
                   <div class="card-body">
-                    <p>날짜 : {{ point.date | date:"y-m-d" }}<br>
+                    <p>작성일 : {{ point.date | date:"y-m-d" }} {{ point.date | time:"h시i분" }}<br>
                     작성자 : {{ point.writer }} <br>
                     지적내용 : {{ point.summary }} </p>
 
 
-                    <!-- 지적사항에 맞는 조치사항 리스트 출력 -->
+
+                    <!--지적사항에 맞는 조치사항 리스트 출력-->
                     {% if cfr.action %}
                       {% for action_key, action_value in cfr.action.items %}
                         {% if action_key == point.id %}
@@ -559,6 +659,7 @@
                         {% endif %}
                       {% endfor %}
                     {% endif %}
+
 
                   </div>
                 </div>

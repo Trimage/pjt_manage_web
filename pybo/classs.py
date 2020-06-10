@@ -4,22 +4,22 @@ class Project_total :
     # 프로젝트 객체
 
     def __init__(self):
-        self.id = 0
+        self.id = ''
         self.date = ''
-        self.num = 0
+        self.num = ''
         self.address = ''
         self.name = ''
 
         self.shape = ''
-        self.scale_width = 0
-        self.scale_length = 0
-        self.scale_depth = 0
-        self.tm = 0
-        self.steel = 0
-        self.earth = 0
+        self.scale_width = ''
+        self.scale_length = ''
+        self.scale_depth = ''
+        self.tm = ''
+        self.steel = ''
+        self.earth = ''
 
-        self.real = 0
-        self.total = 0
+        self.real = ''
+        self.total = ''
 
         self.receive = ''
         self.contract = ''
@@ -35,9 +35,9 @@ class Conference_total :
     # 프로젝트 회의관련 객체
 
     def __init__(self):
-        self.id = 0
-        self.pjt_idx = 0
-        self.num = 0
+        self.id = ''
+        self.pjt_idx = ''
+        self.num = ''
         self.date = ''
         self.place = ''
         self.cf_start = ''

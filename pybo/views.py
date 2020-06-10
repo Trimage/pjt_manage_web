@@ -119,6 +119,7 @@ def detail(request, pjt_id):
     try :
         project_construct = Project_Construct.objects.get(pjt_idx_id=pjt_id)
 
+
         pjt.shape = project_construct.shape
         pjt.scale_width = project_construct.scale_width
         pjt.scale_length = project_construct.scale_length
@@ -126,6 +127,21 @@ def detail(request, pjt_id):
         pjt.tm = project_construct.tm
         pjt.steel = project_construct.steel
         pjt.earth = project_construct.earth
+
+        # DB내 확정유무에 따라 미확정인 경우 공사관련 정보 양옆에 괄호를 추가
+        if project_construct.scale_expect == False:
+            pjt.scale_width = '(' + str(project_construct.scale_width) + ')'
+            pjt.scale_length = '(' + str(project_construct.scale_length) + ')'
+            pjt.scale_depth = '(' + str(project_construct.scale_depth) + ')'
+
+        if project_construct.tm_expect == False:
+            pjt.tm = '(' + str(project_construct.tm) + ')'
+
+        if project_construct.subcontract_expect == False:
+            pjt.steel = '(' + str(project_construct.steel) + ')'
+
+        if project_construct.earth_expect == False:
+            pjt.earth = '(' + str(project_construct.earth) + ')'
 
     except :
         print("project_construct가 없습니다.")
@@ -139,6 +155,19 @@ def detail(request, pjt_id):
         pjt.subcontract = project_company.subcontract
         pjt.plan = project_company.plan
 
+        # DB내 확정유무에 따라 미확정인 경우 회사이름 양옆에 괄호를 추가
+        if project_company.execute_expect == False :
+            pjt.execute = '(' + project_company.execute[:] + ')'
+
+        if project_company.construct_expect == False :
+            pjt.construct = '(' + project_company.construct[:] + ')'
+
+        if project_company.subcontract_expect == False :
+            pjt.subcontract = '(' + project_company.subcontract[:] + ')'
+
+        if project_company.plan_expect == False :
+            pjt.plan = '(' + project_company.plan[:] + ')'
+
     except :
         print("project_company가 없습니다.")
 
@@ -146,8 +175,15 @@ def detail(request, pjt_id):
     try :
         project_cost = Project_Cost.objects.get(pjt_idx_id=pjt_id)
 
-        pjt.real = project_cost.real
-        pjt.total = project_cost.total
+        if project_cost.real_expect :
+            pjt.real = round(project_cost.real,2)
+        else :
+            pjt.real = '(' + str(round(project_cost.real,2)) + ')'
+
+        if project_cost.total_expect :
+            pjt.total = round(project_cost.total,2)
+        else :
+            pjt.total = '(' + str(round(project_cost.total,2)) + ')'
 
     except :
         print("project_cost가 없습니다.")
@@ -172,7 +208,7 @@ def detail(request, pjt_id):
 
 
     try :
-        conference_info = Conference_Info.objects.filter(pjt_idx_id=pjt_id).order_by('-num')
+        conference_info = Conference_Info.objects.filter(pjt_idx_id=pjt_id).order_by('-date')
     except :
         print("conference_info가 없습니다.")
 
@@ -296,6 +332,6 @@ def detail(request, pjt_id):
 
     context = {'project': pjt, 'conference_list' : cfr_list}
 
-    return render(request, 'pybo/question_detail.html', context)
+    return render(request, 'pybo/project_detail.html', context)
 
 
