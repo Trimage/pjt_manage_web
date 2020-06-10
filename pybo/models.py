@@ -1,19 +1,5 @@
 from django.db import models
 
-class Question(models.Model) :
-    subject = models.CharField(max_length = 200)
-    content = models.TextField()
-    create_date = models.DateTimeField()
-
-    def __str__(self):
-        return [self.subject]
-
-class Answer(models.Model) :
-    subject = models.ForeignKey(Question, on_delete=models.CASCADE)
-    content = models.TextField()
-    create_date = models.DateTimeField()
-
-
 #프로젝트 기본정보 테이블
 class Project_Info(models.Model):
 
@@ -31,13 +17,13 @@ class Project_Construct(models.Model):
     # 형태, 규모(가로,세로,깊이), t/m, 토량(M3), 강재(t), 각 예측여부(규모, t/m, 토량, 강재)
 
     pjt_idx = models.ForeignKey(Project_Info, on_delete=models.CASCADE)
-    shape = models.CharField(max_length=10)
-    scale_width = models.IntegerField(blank=False)
-    scale_length = models.IntegerField(blank=False)
-    scale_depth = models.IntegerField(blank=False)
-    tm = models.IntegerField()
-    steel = models.IntegerField()
-    earth = models.IntegerField()
+    shape = models.CharField(max_length=10, null=True)
+    scale_width = models.IntegerField(null=True)
+    scale_length = models.IntegerField(null=True)
+    scale_depth = models.IntegerField(null=True)
+    tm = models.IntegerField(null=True)
+    steel = models.IntegerField(null=True)
+    earth = models.IntegerField(null=True)
     scale_expect = models.BooleanField(blank=False)
     tm_expect = models.BooleanField(blank=False)
     steel_expect = models.BooleanField(blank=False)
@@ -50,8 +36,8 @@ class Project_Cost(models.Model):
     # 실(억), 총(억), 각 예측여부( 실(억), 총(억) )
 
     pjt_idx = models.ForeignKey(Project_Info, on_delete=models.CASCADE)
-    real = models.DecimalField(max_digits=6, decimal_places=3)
-    total = models.DecimalField(max_digits=6, decimal_places=3)
+    real = models.DecimalField(max_digits=6, decimal_places=3, null=True)
+    total = models.DecimalField(max_digits=6, decimal_places=3, null=True)
     real_expect = models.BooleanField(blank=False)
     total_expect = models.BooleanField(blank=False)
 
@@ -75,10 +61,10 @@ class Project_Company(models.Model):
     # 시행사, 시공사, 하도급사, 설계사, 각 예측여부 (시행사, 시공사, 하도급사, 설계사)
 
     pjt_idx = models.ForeignKey(Project_Info, on_delete=models.CASCADE)
-    execute = models.CharField(max_length=30)
-    construct = models.CharField(max_length=30)
-    subcontract = models.CharField(max_length=30)
-    plan = models.CharField(max_length=30)
+    execute = models.CharField(max_length=30, null=True)
+    construct = models.CharField(max_length=30, null=True)
+    subcontract = models.CharField(max_length=30, null=True)
+    plan = models.CharField(max_length=30, null=True)
     execute_expect = models.BooleanField(blank=False)
     construct_expect = models.BooleanField(blank=False)
     subcontract_expect = models.BooleanField(blank=False)
@@ -94,7 +80,7 @@ class Conference_Info(models.Model):
 
     pjt_idx = models.ForeignKey(Project_Info, on_delete=models.CASCADE)
     num = models.IntegerField(blank=False)
-    reference = models.BinaryField()
+    reference = models.BinaryField(null=True)
     place = models.CharField(max_length=30)
     date = models.DateField()
     cf_start = models.TimeField()
@@ -110,7 +96,7 @@ class Conference_Content(models.Model):
     cfr_idx = models.ForeignKey(Conference_Info, on_delete=models.CASCADE)
     writer = models.CharField(max_length=30)
     summary = models.CharField(max_length=200)
-    detail = models.TextField()
+    detail = models.TextField(null=True)
 
 
 
@@ -147,8 +133,8 @@ class Conference_Attender(models.Model):
     agency = models.CharField(max_length=20)
     position = models.CharField(max_length=30)
     name = models.CharField(max_length=30)
-    phone = models.CharField(max_length=30)
-    email = models.CharField(max_length=40)
+    phone = models.CharField(max_length=30, null=True)
+    email = models.CharField(max_length=40, null=True)
 
 
 

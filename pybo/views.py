@@ -49,6 +49,10 @@ def tables(request) :
     #고유 id를 기준으로 내림차순 정렬하여 불러오기
     project_info = Project_Info.objects.order_by('-id')
     project_company = Project_Company.objects.order_by('-pjt_idx_id')
+    project_construct = Project_Construct.objects.order_by('-pjt_idx_id')
+    project_cost = Project_Cost.objects.order_by('-pjt_idx_id')
+    project_schedule = Project_Schedule.objects.order_by('-pjt_idx_id')
+
 
     #페이지로 전달되는 데이터로써, 출력할 프로젝트정보를 딕셔너리 형태로 저장 (key는 pjt_id)
     project_data = {}
@@ -92,6 +96,58 @@ def tables(request) :
         if project.plan_expect == False :
             project_data[project.pjt_idx_id].plan = \
                 '(' + project_data[project.pjt_idx_id].plan[:] + ')'
+
+
+    for project in project_construct :
+        # Jquery형으로 불러온 프로젝트 관련 회사 데이터를 인스턴트 내 각 필드에 저장
+        project_data[project.pjt_idx_id].scale_width = project.scale_width
+        project_data[project.pjt_idx_id].scale_length = project.scale_length
+        project_data[project.pjt_idx_id].scale_depth = project.scale_depth
+
+        project_data[project.pjt_idx_id].tm = project.tm
+        project_data[project.pjt_idx_id].steel = project.steel
+        project_data[project.pjt_idx_id].earth = project.earth
+
+        if project.scale_expect == False:
+            project_data[project.pjt_idx_id].scale_width = '(' + str(project.tm) + ')'
+            project_data[project.pjt_idx_id].scale_length = '(' + str(project.steel) + ')'
+            project_data[project.pjt_idx_id].scale_depth = '(' + str(project.earth) + ')'
+
+        if project.tm_expect == False :
+            project_data[project.pjt_idx_id].tm = \
+                '(' + str(project_data[project.pjt_idx_id].tm) + ')'
+
+        if project.steel_expect == False :
+            project_data[project.pjt_idx_id].steel = \
+                '(' + str(project_data[project.pjt_idx_id].steel) + ')'
+
+        if project.earth_expect == False :
+            project_data[project.pjt_idx_id].earth = \
+                '(' + str(project_data[project.pjt_idx_id].earth) + ')'
+
+
+
+    for project in project_cost :
+        # Jquery형으로 불러온 프로젝트 관련 회사 데이터를 인스턴트 내 각 필드에 저장
+        project_data[project.pjt_idx_id].real = round(project.real,2)
+        project_data[project.pjt_idx_id].total = round(project.total,2)
+
+        # DB내 확정유무에 따라 미확정인 경우 회사이름 양옆에 괄호를 추가
+        if project.real_expect == False :
+            project_data[project.pjt_idx_id].real = \
+                '(' + str(round(project_data[project.pjt_idx_id].real,2)) + ')'
+
+        if project.total_expect == False :
+            project_data[project.pjt_idx_id].total = \
+                '(' + str(round(project_data[project.pjt_idx_id].total,2)) + ')'
+
+
+
+    for project in project_schedule :
+        # Jquery형으로 불러온 프로젝트 관련 회사 데이터를 인스턴트 내 각 필드에 저장
+        project_data[project.pjt_idx_id].receive = project.receive
+        project_data[project.pjt_idx_id].contract = project.contract
+        project_data[project.pjt_idx_id].delivery = project.delivery
 
 
     context = {'project_list' : project_data}
