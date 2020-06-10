@@ -347,7 +347,7 @@
             </div>
             <div class="card-body">
               <div class="table-responsive">
-                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0" font-size="5pt">
                   <thead>
                     <tr>
                       <th>PJT.NO</th>
@@ -355,26 +355,47 @@
                       <th>프로젝트명</th>
                       <th>시행사</th>
                       <th>시공사</th>
-                      <th>설계사</th>
-                      <!--
-                      <th>날짜</th>
-                      <th>PJT.NO</th>
-                      <th>프로젝트명</th>
-                      <th>시행사</th>
-                      <th>시공사</th>
                       <th>하도급사</th>
                       <th>설계사</th>
+                      <th>공사규모</th>
+                      <th>t/m</th>
+                      <th>토량(M3)</th>
+                      <!--
+                      <th>강재(t)</th>
+                      <th>실(억)</th>
+                      <th>총(억)</th>
                       -->
+                      <th>접수일</th>
+                      <th>계약일</th>
+                      <th>영업단계</th>
+                      <th>영업업무내용</th>
+                      <th>설계단계</th>
+                      <th>설계업무내용</th>
                     </tr>
                   </thead>
                   <tfoot>
                     <tr>
                       <th>PJT.NO</th>
-                      <th>날짜</th>
                       <th>주소지</th>
                       <th>프로젝트명</th>
                       <th>시행사</th>
+                      <th>시공사</th>
+                      <th>하도급사</th>
                       <th>설계사</th>
+                      <th>공사규모</th>
+                      <th>t/m</th>
+                      <th>토량(M3)</th>
+                      <!--
+                      <th>강재(t)</th>
+                      <th>실(억)</th>
+                      <th>총(억)</th>
+                      -->
+                      <th>접수일</th>
+                      <th>계약일</th>
+                      <th>영업단계</th>
+                      <th>영업업무내용</th>
+                      <th>설계단계</th>
+                      <th>설계업무내용</th>
                     </tr>
                   </tfoot>
                   <tbody>
@@ -386,6 +407,25 @@
                         <td> <a href = "/tables/{{ data.id }}/"> {{ data.name }} </a> </td>
                         <td> {{ data.execute }} </td>
                         <td> {{ data.construct }} </td>
+                        <td> {{ data.subcontract }} </td>
+                        <td> {{ data.plan }} </td>
+                        {% if data.scale_width %}
+                        <td> {{ data.scale_width }}x{{ data.scale_length }}x{{ data.scale_depth }} </td>
+                        {% else %}
+                        <td> </td>
+                        {% endif %}
+                        <td> {{ data.tm }} </td>
+                        <td> {{ data.earth }} </td>
+                        <!--
+                        <td> {{ data.steel }} </td>
+                        <td> {{ data.real }} </td>
+                        <td> {{ data.total }} </td>
+                        -->
+                        <td> {{ data.receive | date:"y-m-d" }} </td>
+                        <td> {{ data.contract | date:"y-m-d" }} </td>
+                        <td> {{ data.plan }} </td>
+                        <td> {{ data.plan }} </td>
+                        <td> {{ data.plan }} </td>
                         <td> {{ data.plan }} </td>
                       </tr>
                     {% endfor %}
