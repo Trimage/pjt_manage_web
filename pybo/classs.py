@@ -48,7 +48,7 @@ class Conference_total :
         self.detail = ''
         self.writer = ''
 
-        self.point = {}
+        self.point = []
         self.action = {}
         self.approve = {}
         self.visitor = []
@@ -113,7 +113,7 @@ class Point_out :
         self.date = ''
         self.summary = ''
         self.position = ''
-        self.name = ''
+        self.writer = ''
 
 
 class Action:
@@ -129,4 +129,4 @@ class Action:
         self.date = ''
         self.summary = ''
         self.position = ''
-        self.name = ''
+        self.writer = ''
