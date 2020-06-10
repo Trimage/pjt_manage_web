@@ -476,11 +476,12 @@
 
 
 
-
+          <!-- 회의정보 및 지적사항, 조치사항 내용 출력 -->
           {% if conference_list %}
             {% for cfr in conference_list %}
           <div class="row">
 
+            <!-- 회의정보 및 방문자 내용 출력 -->
             <div class="col-lg-6">
 
               <!-- Dropdown Card Example -->
@@ -507,11 +508,29 @@
                 </div>
               </div>
 
+
+
+              <div class="row">
+                {% if cfr.attender %}
+                  {% for atd in cfr.attender %}
+                    <div class="card mb-4 py-3 border-left-primary">
+                      <div class="card-body">
+                        {{ atd.responsibility }} / {{ atd.name }} / {{ atd.position }}<br>{{ atd.name }} / {{ atd.phone }} / {{ atd.email }}
+                      </div>
+                    </div>
+                  {% endfor %}
+                {% endif %}
+
+              </div>
+
             </div>
 
+
+
+            <!-- 지적사항 및 조치사항 내용 출력 -->
             <div class="col-lg-6">
               {% if cfr.point %}
-                {% for point in cfr.point.values %}
+                {% for point in cfr.point %}
 
               <!-- Collapsable Card Example -->
               <div class="card shadow mb-4">
@@ -526,12 +545,18 @@
                     작성자 : {{ point.writer }} <br>
                     지적내용 : {{ point.summary }} </p>
 
+
+                    <!-- 지적사항에 맞는 조치사항 리스트 출력 -->
                     {% if cfr.action %}
-                      {% for action in cfr.action.values %}
-                        <hr>
-                        <p> 날짜 : {{ action.date | date:"y-m-d" }}<br>
+                      {% for action_key, action_value in cfr.action.items %}
+                        {% if action_key == point.id %}
+                          {% for action in action_value %}
+                            <hr>
+                            <p> <strong> 날짜 : {{ action.date | date:"y-m-d" }}<br>
                             작성자 : {{ action.writer }} <br>
-                            조치내용 : {{ action.summary }} </p>
+                              조치내용 : {{ action.summary }} </strong> </p>
+                          {% endfor %}
+                        {% endif %}
                       {% endfor %}
                     {% endif %}
 

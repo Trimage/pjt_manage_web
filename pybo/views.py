@@ -101,66 +101,81 @@ def tables(request) :
 # url 'tables/게시글번호' 관련 함수
 def detail(request, pjt_id):
 
+    pjt = Project_total()
+
     try :
         project_info = get_object_or_404(Project_Info, pk=pjt_id)
+
+        pjt.id = project_info.id
+        pjt.date = project_info.date
+        pjt.num = project_info.num
+        pjt.address = project_info.address
+        pjt.name = project_info.name
+
     except :
         return render(request, 'pybo/404.html')
 
+
     try :
         project_construct = Project_Construct.objects.get(pjt_idx_id=pjt_id)
+
+        pjt.shape = project_construct.shape
+        pjt.scale_width = project_construct.scale_width
+        pjt.scale_length = project_construct.scale_length
+        pjt.scale_depth = project_construct.scale_depth
+        pjt.tm = project_construct.tm
+        pjt.steel = project_construct.steel
+        pjt.earth = project_construct.earth
+
     except :
-        project_construct = Project_total()
+        print("project_construct가 없습니다.")
+
 
     try :
         project_company = Project_Company.objects.get(pjt_idx_id=pjt_id)
+
+        pjt.execute = project_company.execute
+        pjt.construct = project_company.construct
+        pjt.subcontract = project_company.subcontract
+        pjt.plan = project_company.plan
+
     except :
-        project_company = Project_total()
+        print("project_company가 없습니다.")
 
 
     try :
         project_cost = Project_Cost.objects.get(pjt_idx_id=pjt_id)
+
+        pjt.real = project_cost.real
+        pjt.total = project_cost.total
+
     except :
-        project_cost = Project_total()
+        print("project_cost가 없습니다.")
+
 
     try :
         project_schedule = Project_Schedule.objects.get(pjt_idx_id=pjt_id)
+
+        pjt.receive = project_schedule.receive
+        pjt.contract = project_schedule.contract
+        pjt.delivery = project_schedule.delivery
+
     except :
-        project_schedule = Project_total()
+        print("project_schedule이 없습니다.")
 
 
-    pjt = Project_total()
 
-    pjt.id = project_info.id
-    pjt.date = project_info.date
-    pjt.num = project_info.num
-    pjt.address = project_info.address
-    pjt.name = project_info.name
 
-    pjt.shape = project_construct.shape
-    pjt.scale_width = project_construct.scale_width
-    pjt.scale_length = project_construct.scale_length
-    pjt.scale_depth = project_construct.scale_depth
-    pjt.tm = project_construct.tm
-    pjt.steel = project_construct.steel
-    pjt.earth = project_construct.earth
-
-    pjt.real = project_cost.real
-    pjt.total = project_cost.total
-
-    pjt.execute = project_company.execute
-    pjt.construct = project_company.construct
-    pjt.subcontract = project_company.subcontract
-    pjt.plan = project_company.plan
-
-    pjt.receive = project_schedule.receive
-    pjt.contract = project_schedule.contract
-    pjt.delivery = project_schedule.delivery
 
 
     cfr_list = []
 
 
-    conference_info = Conference_Info.objects.filter(pjt_idx_id=pjt_id).order_by('-num')
+    try :
+        conference_info = Conference_Info.objects.filter(pjt_idx_id=pjt_id).order_by('-num')
+    except :
+        print("conference_info가 없습니다.")
+
 
     for conference in conference_info:
         cfr = Conference_total()
@@ -174,52 +189,107 @@ def detail(request, pjt_id):
         cfr.cf_end = conference.cf_end
         cfr.reference = conference.reference
 
-        try :
-            conference_content = Conference_Content.objects.get(cfr_idx_id=cfr.id)
-        except :
-            conference_content = Conference_total()
-
-        try:
-            conference_attender = Conference_Attender.objects.filter(cfr_idx_id=cfr.id).order_by('responsibility')
-        except :
-            conference_attender = Attender()
-
-        try:
-            conference_visitor = Conference_Visitor.objects.filter(cfr_idx_id=cfr.id).order_by('position')
-        except:
-            conference_visitor = Visitor()
-
-        try:
-            conference_approve = Conference_Approve.objects.filter(cfr_idx_id=cfr.id).order_by('position')
-        except:
-            conference_approve = Approve()
-
-        cfr.summary = conference_content.summary
-        cfr.detail = conference_content.detail
-        cfr.writer = conference_content.writer
-
-        cfr.attender.append(conference_attender)
-        cfr.visitor.append(conference_visitor)
-
-        for approve in conference_approve :
-            cfr.approve[approve.id] = approve
-
 
         try :
-            conference_point = Conference_Point.objects.filter(cfr_idx_id=cfr.id).order_by('-num')
+            conference_content = Conference_Content.objects.get(cfr_idx_id=conference.id)
+            cfr.summary = conference_content.summary
+            cfr.detail = conference_content.detail
+            cfr.writer = conference_content.writer
+
+        except :
+            print("conference_content가 없습니다.")
+
+
+        try:
+            conference_attender = Conference_Attender.objects.filter(cfr_idx_id=conference.id).order_by('responsibility')
+
+            for attender in conference_attender :
+                atd = Attender()
+
+                atd.responsibility = attender.responsibility
+                atd.agency = attender.agency
+                atd.position = attender.position
+                atd.name = attender.name
+                atd.phone = attender.phone
+                atd.email = attender.email
+
+                cfr.attender.append(atd)
+
+        except :
+            print("conference_attender가 없습니다.")
+
+
+        try:
+            conference_visitor = Conference_Visitor.objects.filter(cfr_idx_id=conference.id).order_by('position')
+
+            for visit in conference_visitor :
+                vs = Visitor()
+
+                vs.position = visit.position
+                vs.name = visit.name
+
+                cfr.visitor.append(vs)
+
         except:
-            conference_point = Point_out()
+            print("conference_visitor가 없습니다.")
 
-        for point in conference_point :
-            cfr.point[point.id] = point
 
-            try :
-                conference_action = Conference_Action.objects.filter(point_idx_id=point.id).order_by('-num')
-            except :
-                conference_action = Action()
+        try:
+            conference_approve = Conference_Approve.objects.filter(cfr_idx_id=conference.id).order_by('position')
 
-            for action in conference_action :
-                cfr.action[point.id] = action
+            for approve in conference_approve :
+                aprv = Approve()
+
+                aprv.position = approve.position
+                aprv.name = approve.name
+                aprv.date = approve.date
+
+                cfr.approve[approve.position] = aprv
+
+        except:
+            print("conference_approve가 없습니다.")
+
+
+
+
+        try :
+            conference_point = Conference_Point.objects.filter(cfr_idx_id=conference.id).order_by('-date')
+
+            for point in conference_point:
+                pt = Point_out()
+
+                pt.id = point.id
+                pt.writer = point.writer
+                pt.summary = point.summary
+                pt.date = point.date
+
+                cfr.point.append(pt)
+
+                try:
+                    conference_action = Conference_Action.objects.filter(point_idx_id=point.id).order_by('-date')
+
+                    action_list = []
+
+                    for action in conference_action :
+                        act = Action()
+
+                        act.id = action.id
+                        act.point_idx_id = action.point_idx_id
+                        act.writer = action.writer
+                        act.summary = action.summary
+                        act.date = action.date
+
+                        action_list.append(act)
+
+
+                    cfr.action[point.id] = action_list
+
+                except:
+                    print("conference_action이 없습니다.")
+
+        except:
+            print("conference_point가 없습니다.")
+
 
         cfr_list.append(cfr)
 

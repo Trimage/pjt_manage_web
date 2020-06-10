@@ -122,6 +122,7 @@ class Conference_Approve(models.Model):
     cfr_idx = models.ForeignKey(Conference_Info, on_delete=models.CASCADE)
     position = models.CharField(max_length=30)
     name = models.CharField(max_length=30)
+    date = models.DateField()
 
 
 
