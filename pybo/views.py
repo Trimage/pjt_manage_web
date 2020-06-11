@@ -151,7 +151,32 @@ def tables(request) :
 
 
 
-    context = {'project_list' : project_data}
+    #고유 id를 기준으로 내림차순 정렬하여 불러오기
+    conference_info = Conference_Info.objects.order_by('-id')
+    conference_content = Conference_Content.objects.order_by('-cfr_idx_id')
+
+
+    #페이지로 전달되는 데이터로써, 출력할 프로젝트정보를 딕셔너리 형태로 저장 (key는 pjt_id)
+    conference_data = {}
+
+    for conference in conference_info :
+
+        #Project_total 클래스 인스턴트 형성n
+        cfr = Conference_total()
+
+        #Jquery형으로 불러온 기본 프로젝트 데이터를 인스턴트 내 각 필드에 저장
+        cfr.pjt_idx = conference.pjt_idx_id
+        cfr.department = conference.department
+
+        #project_data에 pjt.id를 키 값으로 하여 형성된 인스턴트 저장
+        conference_data[conference.pjt_idx_id] = cfr
+
+    for conference in conference_content:
+        # Jquery형으로 불러온 프로젝트 관련 회사 데이터를 인스턴트 내 각 필드에 저장
+        conference_data[project.pjt_idx_id].summary = conference.summary
+        conference_data[project.pjt_idx_id].stage = conference.stage
+
+    context = {'project_list' : project_data, 'conference_list' : conference_data }
     return render(request, 'pybo/tables.html', context)
 
 
@@ -276,6 +301,7 @@ def detail(request, pjt_id):
         cfr.id = conference.id
         cfr.pjt_idx = conference.pjt_idx_id
         cfr.num = conference.num
+        cfr.department = conference.department
         cfr.date = conference.date
         cfr.place = conference.place
         cfr.cf_start = conference.cf_start
@@ -285,6 +311,7 @@ def detail(request, pjt_id):
 
         try :
             conference_content = Conference_Content.objects.get(cfr_idx_id=conference.id)
+            cfr.stage = conference_content.stage
             cfr.summary = conference_content.summary
             cfr.detail = conference_content.detail
             cfr.writer = conference_content.writer
