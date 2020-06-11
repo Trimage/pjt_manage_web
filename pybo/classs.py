@@ -39,11 +39,13 @@ class Conference_total :
         self.pjt_idx = ''
         self.num = ''
         self.date = ''
+        self.department = ''
         self.place = ''
         self.cf_start = ''
         self.cf_end = ''
         self.reference = ''
 
+        self.stage = ''
         self.summary = ''
         self.detail = ''
         self.writer = ''

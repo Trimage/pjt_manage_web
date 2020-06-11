@@ -76,10 +76,11 @@ class Project_Company(models.Model):
 #프로젝트 회의 테이블
 class Conference_Info(models.Model):
 
-    #회의자료, 장소, 회의일, 회의시작시간, 회의종료시간
+    #부서, 회의자료, 장소, 회의일, 회의시작시간, 회의종료시간
 
     pjt_idx = models.ForeignKey(Project_Info, on_delete=models.CASCADE)
     num = models.IntegerField(blank=False)
+    department = models.CharField(max_length=30)
     reference = models.BinaryField(null=True)
     place = models.CharField(max_length=30)
     date = models.DateField()
@@ -91,10 +92,11 @@ class Conference_Info(models.Model):
 #프로젝트 회의내용 테이블
 class Conference_Content(models.Model):
 
-    #작성자, 요약, 상세내용
+    #작성자, 진행단계, 요약, 상세내용
 
     cfr_idx = models.ForeignKey(Conference_Info, on_delete=models.CASCADE)
     writer = models.CharField(max_length=30)
+    stage = models.CharField(max_length=30, null=True)
     summary = models.CharField(max_length=200)
     detail = models.TextField(null=True)
 
@@ -103,7 +105,7 @@ class Conference_Content(models.Model):
 #프로젝트 회의 결재사항 테이블
 class Conference_Approve(models.Model):
 
-    #직책, 성명
+    #직책, 성명, 결재일
 
     cfr_idx = models.ForeignKey(Conference_Info, on_delete=models.CASCADE)
     position = models.CharField(max_length=30)
@@ -131,7 +133,7 @@ class Conference_Attender(models.Model):
     cfr_idx = models.ForeignKey(Conference_Info, on_delete=models.CASCADE)
     responsibility = models.CharField(max_length=20)
     agency = models.CharField(max_length=20)
-    position = models.CharField(max_length=30)
+    position = models.CharField(max_length=30, blank=False)
     name = models.CharField(max_length=30)
     phone = models.CharField(max_length=30, null=True)
     email = models.CharField(max_length=40, null=True)
@@ -141,7 +143,7 @@ class Conference_Attender(models.Model):
 # 프로젝트 회의 지적사항 테이블
 class Conference_Point(models.Model) :
 
-    # 작성자, 지적사항
+    # 작성자, 지적사항, 작성일
     cfr_idx = models.ForeignKey(Conference_Info, on_delete=models.CASCADE)
     num = models.IntegerField(blank=False)
     writer = models.CharField(max_length=30)
@@ -153,7 +155,7 @@ class Conference_Point(models.Model) :
 # 프로젝트 회의 조치사항 테이블
 class Conference_Action(models.Model) :
 
-    # 작성자, 조치사항
+    # 작성자, 조치사항, 작성일
     point_idx = models.ForeignKey(Conference_Point, on_delete=models.CASCADE)
     num = models.IntegerField(blank=False)
     writer = models.CharField(max_length=30)
