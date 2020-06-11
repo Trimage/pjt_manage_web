@@ -347,7 +347,7 @@
             </div>
             <div class="card-body">
               <div class="table-responsive">
-                <table class="table table-bordered fa-sm" id="dataTable" width="100%" cellspacing="0" >
+                <table class="table table-bordered fa-xs" id="dataTable" width="100%" cellspacing="0" >
                   <thead>
                     <tr>
                       <th>PJT.NO</th>
@@ -359,7 +359,7 @@
                       <th>설계사</th>
                       <th>공사규모</th>
                       <th>t/m</th>
-                      <th>토량(M3)</th>
+                      <th>토량</th>
                       <!--
                       <th>강재(t)</th>
                       <th>실(억)</th>
@@ -384,7 +384,7 @@
                       <th>설계사</th>
                       <th>공사규모</th>
                       <th>t/m</th>
-                      <th>토량(M3)</th>
+                      <th>토량</th>
                       <!--
                       <th>강재(t)</th>
                       <th>실(억)</th>
@@ -405,28 +405,28 @@
                         <td> <a href = "/tables/{{ data.id }}/"> {{ data.date|date:"y" }}-{{ data.num }} </a> </td>
                         <td> {{ data.address }} </td>
                         <td> <a href = "/tables/{{ data.id }}/"> {{ data.name }} </a> </td>
-                        <td> {{ data.execute }} </td>
-                        <td> {{ data.construct }} </td>
-                        <td> {{ data.subcontract }} </td>
-                        <td> {{ data.plan }} </td>
+                        <td> {{ data.execute | default:'-' }} </td>
+                        <td> {{ data.construct | default:'-' }} </td>
+                        <td> {{ data.subcontract | default:'-' }} </td>
+                        <td> {{ data.plan | default:'-' }} </td>
                         {% if data.scale_width %}
                         <td> {{ data.scale_width }}x{{ data.scale_length }}x{{ data.scale_depth }} </td>
                         {% else %}
-                        <td> </td>
+                        <td> - </td>
                         {% endif %}
-                        <td> {{ data.tm }} </td>
-                        <td> {{ data.earth }} </td>
+                        <td> {{ data.tm | default:'-'}} </td>
+                        <td> {{ data.earth | default:'-'}} </td>
                         <!--
                         <td> {{ data.steel }} </td>
                         <td> {{ data.real }} </td>
                         <td> {{ data.total }} </td>
                         -->
-                        <td> {{ data.receive | date:"y-m-d" }} </td>
-                        <td> {{ data.contract | date:"y-m-d" }} </td>
-                        <td> {{ data.plan }} </td>
-                        <td> {{ data.plan }} </td>
-                        <td> {{ data.plan }} </td>
-                        <td> {{ data.plan }} </td>
+                        <td> {{ data.receive | date:"y-m-d" | default:'-' }} </td>
+                        <td> {{ data.contract | date:"y-m-d" | default:'-' }} </td>
+                        <td> {{ data.plan | default:'-' }} </td>
+                        <td> {{ data.plan | default:'-' }} </td>
+                        <td> {{ data.plan | default:'-' }} </td>
+                        <td> {{ data.plan | default:'-' }} </td>
                       </tr>
                     {% endfor %}
                   {% else %}

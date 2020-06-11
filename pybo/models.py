@@ -22,8 +22,8 @@ class Project_Construct(models.Model):
     scale_length = models.IntegerField(null=True)
     scale_depth = models.IntegerField(null=True)
     tm = models.IntegerField(null=True)
-    steel = models.IntegerField(null=True)
     earth = models.IntegerField(null=True)
+    steel = models.IntegerField(null=True)
     scale_expect = models.BooleanField(blank=False)
     tm_expect = models.BooleanField(blank=False)
     steel_expect = models.BooleanField(blank=False)
@@ -49,8 +49,8 @@ class Project_Schedule(models.Model):
 
     pjt_idx = models.ForeignKey(Project_Info, on_delete=models.CASCADE)
     receive = models.DateField()
-    contract = models.DateField()
-    delivery = models.DateField()
+    contract = models.DateField(null=True)
+    delivery = models.DateField(null=True)
 
 
 
