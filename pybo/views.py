@@ -65,7 +65,7 @@ def tables(request) :
         #Jquery형으로 불러온 기본 프로젝트 데이터를 인스턴트 내 각 필드에 저장
         pjt.id = project.id
         pjt.date = project.date
-        pjt.num = project.num
+        pjt.num = ("000" + str(project.num))[-3:]
         pjt.address = project.address
         pjt.name = project.name
 
@@ -150,6 +150,7 @@ def tables(request) :
         project_data[project.pjt_idx_id].delivery = project.delivery
 
 
+
     context = {'project_list' : project_data}
     return render(request, 'pybo/tables.html', context)
 
@@ -164,7 +165,7 @@ def detail(request, pjt_id):
 
         pjt.id = project_info.id
         pjt.date = project_info.date
-        pjt.num = project_info.num
+        pjt.num = ("000" + str(project_info.num))[-3:]
         pjt.address = project_info.address
         pjt.name = project_info.name
 
